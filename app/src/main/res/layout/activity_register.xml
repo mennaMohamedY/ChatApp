@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.register.RegisterViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".register.RegisterActivity"
+        android:background="@drawable/bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginTop="29dp" />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="29dp"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/back_icon" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidLine"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.35"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fstNameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/guidLine"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="4dp"
+            >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fstNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="First Name"
+            android:text="@={viewModel.fstNameLiveData}"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lstNameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/fstNameLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="12dp"
+            android:text="Last Name">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/LstNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="Last Name"
+                android:text="@={viewModel.lstNameLiveData}"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/emailAddressTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email Address"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lstNameLayout"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/emailAddress_txtField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/emailAddressTxt"
+            android:layout_marginHorizontal="12dp"
+            android:hint="menna@gmail.com"
+            android:drawableEnd="@drawable/correct_icon"
+            android:text="@={viewModel.email}"/>
+
+        <TextView
+            android:id="@+id/passwordTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/emailAddress_txtField"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/password_txtField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/passwordTxt"
+            android:layout_marginHorizontal="12dp"
+            android:hint="******"
+            android:drawableEnd="@drawable/view"
+            android:text="@={viewModel.password}"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/registrationBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="16dp"
+            android:drawableEnd="@drawable/next_gray"
+            android:text="Create Account"
+            android:textColor="#AEA9A9"
+            android:background="@color/white"
+            android:layout_marginBottom="44dp"
+            android:paddingHorizontal="8dp"
+            android:onClick="@{()->viewModel.onRegister()}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
