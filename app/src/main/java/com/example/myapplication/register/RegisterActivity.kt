@@ -1,42 +1,58 @@
 package com.example.myapplication.register
 
+import android.content.DialogInterface
+import android.content.DialogInterface.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.example.myapplication.R
+import com.example.myapplication.base.BaseActivity
 import com.example.myapplication.databinding.ActivityRegisterBinding
 import com.example.myapplication.login.LoginActivity
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
 
-class RegisterActivity : AppCompatActivity() {
-    lateinit var binding:ActivityRegisterBinding
-    lateinit var viewModel:RegisterViewModel
+class RegisterActivity : BaseActivity<ActivityRegisterBinding,RegisterViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_register)
-        viewModel=ViewModelProvider(this).get(RegisterViewModel::class.java)
-        binding.viewModel=this.viewModel
+        FirebaseApp.initializeApp(this)
+
+        dataBinding.viewModel=this.viewModel
 
         viewModel.Email.observe(this){
             Log.e("dataBinding","Email${it}")
         }
         viewModel.emailError.observe(this){
-            binding.emailAddressTxtField.error=it
+            dataBinding.emailAddressTxtField.error=it
         }
         viewModel.passwordError.observe(this){
-            binding.passwordTxtField.error=it
+            dataBinding.passwordTxtField.error=it
         }
         viewModel.lstNameError.observe(this){
-            binding.LstNameEditText.error=it
+            dataBinding.LstNameEditText.error=it
         }
         viewModel.fstNameError.observe(this){
-            binding.fstNameEditText.error=it
+            dataBinding.fstNameEditText.error=it
         }
-        binding.registrationBtn.setOnClickListener{
+        dataBinding.registrationBtn.setOnClickListener{
 
         }
+        viewModel.msgLiveData.observe(this){
+            showDialog(it,"ok"
+            ) { dialog, which -> dialog?.dismiss() }
+        }
+    }
+
+    override fun getLayoutID(): Int {
+        return R.layout.activity_register
+    }
+
+    override fun initViewModel(): RegisterViewModel {
+        return ViewModelProvider(this).get(RegisterViewModel::class.java)
     }
 }

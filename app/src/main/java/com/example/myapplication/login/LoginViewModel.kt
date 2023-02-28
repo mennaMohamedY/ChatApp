@@ -1,20 +1,40 @@
 package com.example.myapplication.login
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.myapplication.base.BaseViewModel
 import com.example.myapplication.checkEmail
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
-class LoginViewModel:ViewModel() {
+class LoginViewModel:BaseViewModel() {
 
     val email:MutableLiveData<String> = MutableLiveData()
     val password:MutableLiveData<String> = MutableLiveData()
     val emailError:MutableLiveData<String>? = MutableLiveData(null)
     val passwordError:MutableLiveData<String?> = MutableLiveData(null)
+    val auth=Firebase.auth
 
     fun signIn(){
         if(ValidateInput()){
+            authEmaiLAndPassword()
 
         }
+    }
+    fun authEmaiLAndPassword(){
+        auth.signInWithEmailAndPassword(email.value!!, password.value!!)
+            .addOnCompleteListener{ task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.e("success", "signInWithEmail:success")
+                    val user = auth.currentUser
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.e("Fail", "signInWithEmail:failure", task.exception)
+                    msgLiveData.value=task.exception?.message
+                }
+            }
     }
 
     fun ValidateInput():Boolean{
