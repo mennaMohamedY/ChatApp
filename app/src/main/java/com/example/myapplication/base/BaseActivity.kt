@@ -11,7 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.R
 
-abstract class BaseActivity<DataBinding: ViewDataBinding, VM:ViewModel>:AppCompatActivity(){
+abstract class BaseActivity<DataBinding: ViewDataBinding, VM:BaseViewModel<*>>:AppCompatActivity(){
     lateinit var dataBinding:DataBinding
     lateinit var viewModel:VM
 

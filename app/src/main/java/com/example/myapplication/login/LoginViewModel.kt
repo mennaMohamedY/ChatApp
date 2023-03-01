@@ -8,7 +8,7 @@ import com.example.myapplication.checkEmail
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class LoginViewModel:BaseViewModel() {
+class LoginViewModel:BaseViewModel<Navigator>() {
 
     val email:MutableLiveData<String> = MutableLiveData()
     val password:MutableLiveData<String> = MutableLiveData()
@@ -20,6 +20,7 @@ class LoginViewModel:BaseViewModel() {
         if(ValidateInput()){
             authEmaiLAndPassword()
 
+
         }
     }
     fun authEmaiLAndPassword(){
@@ -29,6 +30,7 @@ class LoginViewModel:BaseViewModel() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.e("success", "signInWithEmail:success")
                     val user = auth.currentUser
+                    navigator?.navigateToHomePage()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.e("Fail", "signInWithEmail:failure", task.exception)

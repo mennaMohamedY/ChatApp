@@ -11,7 +11,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
-class RegisterViewModel:BaseViewModel() {
+class RegisterViewModel:BaseViewModel<Navigator>() {
 
     val FstNameLiveData:MutableLiveData<String> = MutableLiveData()
     val Email:MutableLiveData<String> = MutableLiveData()
@@ -37,6 +37,7 @@ class RegisterViewModel:BaseViewModel() {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth.currentUser
                     val uid=task.result.user?.uid
+                    navigator?.navigateToHomePage()
 
                     // addUserToFireBase()
                     Log.e("creatAcountFromFireBAse","fun creatAcountFromFireBAse is called!")

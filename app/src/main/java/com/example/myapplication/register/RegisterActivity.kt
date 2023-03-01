@@ -1,22 +1,16 @@
 package com.example.myapplication.register
 
-import android.content.DialogInterface
-import android.content.DialogInterface.OnClickListener
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import com.example.myapplication.home.HomeActivity
 import com.example.myapplication.R
 import com.example.myapplication.base.BaseActivity
 import com.example.myapplication.databinding.ActivityRegisterBinding
-import com.example.myapplication.login.LoginActivity
 import com.google.firebase.FirebaseApp
-import com.google.firebase.ktx.Firebase
 
-class RegisterActivity : BaseActivity<ActivityRegisterBinding,RegisterViewModel>() {
+class RegisterActivity : BaseActivity<ActivityRegisterBinding,RegisterViewModel>(),Navigator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +40,7 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding,RegisterViewModel>
             showDialog(it,"ok"
             ) { dialog, which -> dialog?.dismiss() }
         }
+        viewModel.navigator=this
     }
 
     override fun getLayoutID(): Int {
@@ -54,5 +49,10 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding,RegisterViewModel>
 
     override fun initViewModel(): RegisterViewModel {
         return ViewModelProvider(this).get(RegisterViewModel::class.java)
+    }
+
+    override fun navigateToHomePage() {
+        val intent=Intent(this, HomeActivity::class.java)
+        startActivity(intent)
     }
 }

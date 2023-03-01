@@ -3,21 +3,17 @@ package com.example.myapplication.login
 import android.content.DialogInterface
 import android.content.DialogInterface.OnClickListener
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.home.HomeActivity
 import com.example.myapplication.R
 import com.example.myapplication.base.BaseActivity
 import com.example.myapplication.databinding.ActivityLoginBinding
 import com.example.myapplication.register.RegisterActivity
 import com.google.firebase.FirebaseApp
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.initialize
 
-class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>() {
+class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(),Navigator {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +41,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>() {
                 }
             })
         }
+        viewModel.navigator=this
 
     }
 
@@ -54,5 +51,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>() {
 
     override fun initViewModel(): LoginViewModel {
         return ViewModelProvider(this).get(LoginViewModel::class.java)
+    }
+
+    override fun navigateToHomePage() {
+        val intent=Intent(this, HomeActivity::class.java)
+        startActivity(intent)
     }
 }
